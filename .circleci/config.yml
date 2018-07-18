@@ -12,12 +12,24 @@ jobs:
     docker:
       - image: ansible/centos7-ansible
       - image: stilliard/pure-ftpd:hardened
-
+        # environment:
+        #   FTP_USER_NAME: foo
+        #   FTP_USER_PASS: bar
+        #   FTP_USER_HOME: /home/foo
     working_directory: ~/repo
 
     steps:
       - checkout
+      - run:
+          name: install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+      - run:
+          name: Wait for ftpd
+          command: dockerize -wait tcp://localhost:21 -timeout 1m
       - run: ansible --version
+      - run: ftp -p localhost 21
 
       # Download and cache dependencies
       # - restore_cache:
