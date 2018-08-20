@@ -20,42 +20,7 @@ jobs:
 
     steps:
       - checkout
-#      - run:
-#          name: install dockerize
-#          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-#          environment:
-#            DOCKERIZE_VERSION: v0.3.0
-#      - run:
-#          name: Wait for ftpd
-#          command: dockerize -wait tcp://localhost:21 -timeout 1m
       - run: ansible --version
-      - run: ftp -p localhost 21
+#      - run: ftp -p localhost 21
 
-      # Download and cache dependencies
-      # - restore_cache:
-      #     keys:
-      #     - v1-dependencies-{{ checksum "requirements.txt" }}
-      #     # fallback to using the latest cache if no exact match is found
-      #     - v1-dependencies-
-
-      # - save_cache:
-      #     paths:
-      #       - ./venv
-      #     key: v1-dependencies-{{ checksum "requirements.txt" }}
-        
-      # run tests!
-      # this example uses Django's built-in test-runner
-      # other common Python testing frameworks include pytest and nose
-      # https://pytest.org
-      # https://nose.readthedocs.io
-      # 
-      # - run:
-      #     name: run tests
-      #     command: |
-      #       . venv/bin/activate
-      #       python manage.py test
-
-      # - store_artifacts:
-      #     path: test-reports
-      #     destination: test-reports
           
